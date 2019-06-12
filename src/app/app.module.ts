@@ -10,12 +10,14 @@ import { AppComponent } from './app.component';
 import { ExercisesComponent } from './exercises/exercises.component';
 import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './auth.interceptor';
+import { PersonComponent } from './person/person.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ExercisesComponent,
-    LoginComponent
+    LoginComponent,
+    PersonComponent
   ],
   imports: [
     BrowserModule,
