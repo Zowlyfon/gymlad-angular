@@ -1,7 +1,19 @@
-<h2>Exercises</h2>
+<h1>{{title}}</h1>
 
-<ul>
-  <li *ngFor="let exercise of exercises">
-    <span>{{exercise.id}}</span> {{exercise.name}}
-  </li>
-</ul>
+<button class="btn btn-success" (click)="newExercise()">Add Exercise</button>
+
+<div class="list-group">
+  <div class="list-group-item" *ngFor="let exercise of exercises">
+    <div class="row">
+      <div class="col-md-1">
+        Exercise Name:
+      </div>
+      <div class="col-md">
+        <input class="form-control" type="text" [(ngModel)]="exercise.name"  (change)="updateExercise(exercise)">
+      </div>
+      <div class="col-md-1">
+        <button class="btn btn-danger" (click)="removeExercise(exercise)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,9 +10,10 @@ import { PersonService } from '../person.service';
 })
 export class PersonComponent implements OnInit {
 
-  constructor() { }
+  constructor(public personService: PersonService) { }
 
   ngOnInit() {
+    this.personService.getPerson();
   }
 
 }

@@ -1,6 +1,12 @@
-<div class="card" style="width: 60%">
-  <div class="card-body">
-      <input type="text" [(ngModel)]="login.userName">
-      <input type="password" [(ngModel)]="login.password">
+<div class="row">
+  <div class="col-md-2 mx-auto">
+      <h1>{{title}}</h1>
+      Username:
+      <input type="text" [(ngModel)]="login.userName" class="form-control">
+      <br />
+      Password:
+      <input type="password" [(ngModel)]="login.password" class="form-control">
+      <br />
       <button type="button" class="btn btn-primary" (click)="performLogin()" >Login</button>
+  </div>
 </div>

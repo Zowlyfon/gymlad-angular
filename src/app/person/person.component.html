@@ -1,3 +1,43 @@
-<p>
-  person works!
-</p>
+<h1>Your Details</h1>
+<div class="list-group">
+  <div class="list-group-item">
+    <div class="row">
+      <div class="col-md-1">
+        First Name:
+      </div>
+      <div class="col-md">
+        <input type="text" class="form-control" [(ngModel)]="personService.person.firstName">
+      </div>
+    </div>
+  </div>
+  <div class="list-group-item">
+    <div class="row">
+      <div class="col-md-1">
+        Last Name:
+      </div>
+      <div class="col-md">
+        <input type="text" class="form-control" [(ngModel)]="personService.person.lastName">
+      </div>
+    </div>
+  </div>
+  <div class="list-group-item">
+    <div class="row">
+      <div class="col-md-1">
+        Height:
+      </div>
+      <div class="col-md">
+        <input type="number" class="form-control" [(ngModel)]="personService.person.height">
+      </div>
+    </div>
+  </div>
+  <div class="list-group-item">
+    <div class="row">
+      <div class="col-md-1">
+        Weight:
+      </div>
+      <div class="col-md">
+        <input type="number" class="form-control" [(ngModel)]="personService.person.weight">
+      </div>
+    </div>
+  </div>
+</div>

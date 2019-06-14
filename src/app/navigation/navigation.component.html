@@ -1,0 +1,12 @@
+<div class="col-md-2 p-3">
+  <h1>GymLad</h1>
+  <nav class="nav p-4">
+    <ul class="navbar navbar-nav" *ngIf="auth.isAuthenticated">
+      <li class="nav-item" *ngFor="let link of authedLinks"><a class="nav-link d-block" [routerLink]="link.link" routerLinkActive="active">{{link.name}}</a></li>
+      <li class="nav-item"><a class="nav-link d-block text-danger" (click)="performLogout()">Logout</a></li>
+    </ul>
+    <ul class="navbar navbar-nav" *ngIf="!auth.isAuthenticated">
+      <li class="nav-item" *ngFor="let link of anonLinks"><a class="nav-link d-block" [routerLink]="link.link" routerLinkActive="active" >{{link.name}}</a></li>
+    </ul>
+  </nav>
+</div>
