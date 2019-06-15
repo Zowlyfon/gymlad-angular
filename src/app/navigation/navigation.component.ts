@@ -19,7 +19,8 @@ export class NavigationComponent implements OnInit {
     {name: 'Workouts', link: '/workouts'}
   ];
   anonLinks: NavLink[] = [
-    {name: 'Login', link: '/login'}
+    {name: 'Login', link: '/login'},
+    {name: 'Register', link: '/register'}
   ];
 
   performLogout(): void {

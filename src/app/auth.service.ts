@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, from, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { Login } from './login';
 import { HttpClient } from '@angular/common/http';
@@ -14,6 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient, private personService: PersonService, private conf: ConfigService) { }
 
   authToken = '';
+  expiration = Date.now();
   isAuthenticated = false;
 
   private endpoint = this.conf.api + 'person/login/';
@@ -33,9 +35,15 @@ export class AuthService {
   }
 
   setAuth(authToken: string): Observable<boolean> {
-    this.authToken = authToken;
-    this.isAuthenticated = true;
-    return of(true);
+    const jwt = new JwtHelperService();
+    if (!jwt.isTokenExpired(authToken)) {
+      this.authToken = authToken;
+      this.isAuthenticated = true;
+      this.personService.getPerson();
+      return of(true);
+    }
+    this.performLogout();
+    return of(false);
   }
 
   performLogout(): void {

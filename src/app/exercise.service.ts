@@ -18,7 +18,7 @@ export class ExerciseService {
   private endpoint = this.conf.api + 'exercise/';
 
   getExercises(): Observable<Exercise[]> {
-    return this.http.get<Exercise[]>(this.endpoint);
+    return this.http.get<Exercise[]>(this.endpoint + 'person');
   }
 
   putExercise(exercise: Exercise): Observable<Exercise> {

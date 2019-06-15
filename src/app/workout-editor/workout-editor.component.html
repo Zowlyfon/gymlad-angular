@@ -1,0 +1,50 @@
+<h1>Workout Editor</h1>
+<br />
+<div class="row">
+  <div class="col-md-2">
+    <button class="btn btn-success" (click)="newWorkoutSet()">Add Set</button>
+  </div>
+  <div class="col-md-3">
+    <select class="form-control" [(ngModel)]="selectedExercise">
+      <option *ngFor="let exercise of exercises" [value]="exercise.id">{{exercise.name}}</option>
+    </select>
+  </div>
+</div>
+<br />
+<div *ngFor="let exercise of exercises">
+  <div *ngIf="numberOfSetsForExercise(exercise)">
+    <h3>{{exercise.name}}</h3>
+    <div class="list-group">
+      <div *ngFor="let workoutSet of workoutSets">
+      <div class="list-group-item" *ngIf="workoutSet.exerciseId == exercise.id">
+        <div class="row">
+          <div class="col-lg-3">
+            <select class="form-control" [(ngModel)]="workoutSet.exerciseId" (change)="updateWorkoutSet(workoutSet)">
+              <option *ngFor="let exerciseList of exercises" [value]="exerciseList.id">{{exerciseList.name}}</option>
+            </select>
+          </div>
+          <div class="col-md-1">
+            Reps:
+          </div>
+          <div class="col-md-2">
+            <input type="number" class="form-control" [(ngModel)]="workoutSet.reps" (change)="updateWorkoutSet(workoutSet)">
+          </div>
+          <div class="col-md-1">
+            Weight:
+          </div>
+          <div class="col-md-2">
+            <input type="number" class="form-control" [(ngModel)]="workoutSet.weight" (change)="updateWorkoutSet(workoutSet)">
+          </div>
+          <div class="col-md">
+          </div>
+          <div class="col-md-1">
+            <button class="btn btn-danger" (click)="removeWorkoutSet(workoutSet)">Delete</button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <button class="btn btn-success my-3" (click)="newWorkoutSetExercise(exercise.id)">Add Set</button>
+  </div>
+</div>
+

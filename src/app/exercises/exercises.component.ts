@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Exercise } from '../exercise';
 import { ExerciseService } from '../exercise.service';
+import { Person } from '../person';
+import { PersonService } from '../person.service';
+
 @Component({
   selector: 'app-exercises',
   templateUrl: './exercises.component.html',
@@ -8,7 +12,7 @@ import { ExerciseService } from '../exercise.service';
 })
 export class ExercisesComponent implements OnInit {
 
-  constructor(private exerciseService: ExerciseService) { }
+  constructor(private exerciseService: ExerciseService, private personService: PersonService) { }
 
   exercises: Exercise[];
 
@@ -27,6 +31,7 @@ export class ExercisesComponent implements OnInit {
   newExercise(): void {
     const newExercise = new Exercise();
     newExercise.name = 'New Exercise';
+    newExercise.personId = this.personService.person.id;
     this.exerciseService.postExercise(newExercise)
       .subscribe(exercise => this.exercises.push(exercise));
   }

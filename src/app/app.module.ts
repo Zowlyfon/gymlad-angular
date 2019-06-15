@@ -17,6 +17,8 @@ import { AuthInterceptor } from './auth.interceptor';
 import { PersonComponent } from './person/person.component';
 import { WorkoutsComponent } from './workouts/workouts.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { WorkoutEditorComponent } from './workout-editor/workout-editor.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { NavigationComponent } from './navigation/navigation.component';
     LoginComponent,
     PersonComponent,
     WorkoutsComponent,
-    NavigationComponent
+    NavigationComponent,
+    WorkoutEditorComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

@@ -26,7 +26,6 @@ export class AuthGuard implements CanActivate {
       this.auth.setAuth(authToken).subscribe(
         response => valid = response
       );
-
       return valid;
     }
 

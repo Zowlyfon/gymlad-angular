@@ -1,6 +1,6 @@
-export class Person {
-  id: number;
+export class NewPerson {
   userName: string;
+  password: string;
   firstName: string;
   lastName: string;
   height: number;
