@@ -1,7 +1,17 @@
 <h1>Workout Editor</h1>
-<br />
 <div class="row">
   <div class="col-md-2">
+    <button class="btn btn-success" (click)="importTemplate()">Import Template</button>
+  </div>
+  <div class="col-md-3">
+    <select class="form-control" [(ngModel)]="selectedTemplate">
+      <option *ngFor="let template of templates" [value]="template.id">{{template.templateName}}</option>
+    </select>
+  </div>
+</div>
+<br />
+<div class="row">
+  <div class="col-12 col-md-2">
     <button class="btn btn-success" (click)="newWorkoutSet()">Add Set</button>
   </div>
   <div class="col-md-3">
@@ -14,7 +24,7 @@
 <div *ngFor="let exercise of exercises">
   <div *ngIf="numberOfSetsForExercise(exercise)">
     <h3>{{exercise.name}}</h3>
-    <div class="list-group">
+    <div class="list-group list-group-flush">
       <div *ngFor="let workoutSet of workoutSets">
       <div class="list-group-item" *ngIf="workoutSet.exerciseId == exercise.id">
         <div class="row">
@@ -33,11 +43,11 @@
             Weight:
           </div>
           <div class="col-md-2">
-            <input type="number" class="form-control" [(ngModel)]="workoutSet.weight" (change)="updateWorkoutSet(workoutSet)">
+            <input type="number" step="any" class="form-control" [(ngModel)]="workoutSet.weight" (change)="updateWorkoutSet(workoutSet)">
           </div>
           <div class="col-md">
           </div>
-          <div class="col-md-1">
+          <div class="col-12 col-md-1">
             <button class="btn btn-danger" (click)="removeWorkoutSet(workoutSet)">Delete</button>
           </div>
         </div>

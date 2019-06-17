@@ -9,6 +9,10 @@ import { ExerciseService } from '../exercise.service';
 import { Workout } from '../workout';
 import { WorkoutSet } from '../workout-set';
 import { Exercise } from '../exercise';
+import { WorkoutSetTemplate } from '../workout-set-template';
+import { WorkoutSetTemplateService } from '../workout-set-template.service';
+import { WorkoutTemplate } from '../workout-template';
+import { WorkoutTemplateService } from '../workout-template.service';
 
 
 @Component({
@@ -20,18 +24,19 @@ export class WorkoutEditorComponent implements OnInit {
   constructor(private workoutService: WorkoutService,
               private workoutSetService: WorkoutSetService,
               private exerciseService: ExerciseService,
+              private workoutTemplateService: WorkoutTemplateService,
+              private workoutSetTemplateService: WorkoutSetTemplateService,
               private router: Router,
               private location: Location,
               private route: ActivatedRoute) { }
 
+  setTemplates: WorkoutSetTemplate[];
+  templates: WorkoutTemplate[];
+  selectedTemplate: number;
   workoutId: number;
-
   workout: Workout;
-
   workoutSets: WorkoutSet[];
-
   exercises: Exercise[];
-
   selectedExercise: number;
 
   numberOfSetsForExercise(exercise: Exercise): number {
@@ -46,6 +51,11 @@ export class WorkoutEditorComponent implements OnInit {
   getWorkoutSets(): void {
     this.workoutSetService.getWorkoutSets(this.workoutId)
       .subscribe(workoutSets => this.workoutSets = workoutSets);
+  }
+
+  getWorkoutTemplates(): void {
+    this.workoutTemplateService.getWorkouts()
+      .subscribe(templates => this.templates = templates);
   }
 
   newWorkoutSet(): void {
@@ -74,6 +84,22 @@ export class WorkoutEditorComponent implements OnInit {
       .subscribe(response => this.workoutSets.splice(this.workoutSets.indexOf(workoutSet), 1));
   }
 
+  importTemplate(): void {
+    this.workoutSetTemplateService.getWorkoutSets(this.selectedTemplate)
+      .subscribe(setTemplates => {
+        for (const t of setTemplates) {
+          const w = new WorkoutSet();
+          w.workoutId = this.workoutId;
+          w.exerciseId = t.exerciseId;
+          w.reps = t.reps;
+          w.weight = this.exercises.find(e => e.id === t.exerciseId).trainingMax * t.percentage;
+          this.workoutSetService.postWorkoutSet(w)
+            .subscribe(response => this.workoutSets.push(response));
+        }
+      });
+  }
+
+
   ngOnInit() {
     this.workoutId = +this.route.snapshot.paramMap.get('workoutId');
 
@@ -81,8 +107,9 @@ export class WorkoutEditorComponent implements OnInit {
       this.router.navigate(['/workouts']);
     }
 
-    this.getWorkoutSets();
     this.getExercises();
+    this.getWorkoutSets();
+    this.getWorkoutTemplates();
   }
 
 }

@@ -16,6 +16,7 @@ export class NavigationComponent implements OnInit {
   authedLinks: NavLink[] = [
     {name: 'Home', link: '/person'},
     {name: 'Exercises', link: '/exercises'},
+    {name: 'Workout Templates', link: '/workout-templates'},
     {name: 'Workouts', link: '/workouts'}
   ];
   anonLinks: NavLink[] = [

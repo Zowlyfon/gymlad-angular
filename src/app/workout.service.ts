@@ -28,4 +28,8 @@ export class WorkoutService {
   putWorkout(workout: Workout): Observable<Workout> {
     return this.http.put<Workout>(this.endpoint + workout.id, workout);
   }
+
+  deleteWorkout(workout: Workout): Observable<Workout> {
+    return this.http.delete<Workout>(this.endpoint + workout.id);
+  }
 }

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { WorkoutService } from '../workout.service';
 import { Router } from '@angular/router';
 
 import { Workout } from '../workout';
+import { WorkoutService } from '../workout.service';
 import { Person } from '../person';
 import { PersonService } from '../person.service';
+import { WorkoutTemplate } from '../workout-template';
+import { WorkoutTemplateService } from '../workout-template.service';
 
 
 @Component({
@@ -14,11 +16,21 @@ import { PersonService } from '../person.service';
 })
 export class WorkoutsComponent implements OnInit {
 
-  constructor(private workoutService: WorkoutService, private personService: PersonService, private router: Router) { }
+  constructor(private workoutService: WorkoutService,
+              private workoutTemplateService: WorkoutTemplateService,
+              private personService: PersonService,
+              private router: Router) { }
 
   workouts: Workout[];
-
   selectedDate: Date;
+  fromTemplate: boolean;
+  selectedTemplate: number;
+  workoutTemplates: WorkoutTemplate[];
+
+  getWorkoutTemplates(): void {
+    this.workoutTemplateService.getWorkouts()
+      .subscribe(templates => this.workoutTemplates = templates);
+  }
 
   getWorkouts(): void {
     this.workoutService.getWorkouts()
@@ -30,17 +42,29 @@ export class WorkoutsComponent implements OnInit {
     newWorkout.personId = this.personService.person.id;
     newWorkout.time = this.selectedDate;
     this.workoutService.postWorkout(newWorkout).subscribe(
-      workout => this.workouts.push(workout)
+      workout => {
+        this.openWorkoutEditor(workout.id);
+      }
     );
   }
 
+  removeWorkout(workout: Workout): void {
+    this.workoutService.deleteWorkout(workout)
+      .subscribe(response => this.workouts.splice(this.workouts.indexOf(workout), 1));
+  }
+
   openWorkoutEditor(workoutId: number): void {
-    this.router.navigate(['/workout-editor/' + workoutId]);
+    if (this.fromTemplate) {
+      this.router.navigate(['/workout-editor/' + workoutId + '/' + this.selectedTemplate]);
+    } else {
+      this.router.navigate(['/workout-editor/' + workoutId]);
+    }
   }
 
   ngOnInit() {
     this.personService.getPerson();
     this.getWorkouts();
+    this.getWorkoutTemplates();
   }
 
 }

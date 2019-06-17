@@ -14,7 +14,7 @@ export class WorkoutSetService {
   private endpoint = this.conf.api + 'set/';
 
   getWorkoutSets(exerciseId: number): Observable<WorkoutSet[]> {
-    return this.http.get<WorkoutSet[]>(this.conf.api + 'workout/sets/' + exerciseId);
+    return this.http.get<WorkoutSet[]>(this.conf.api + 'workout/' + exerciseId + '/sets');
   }
 
   postWorkoutSet(workoutSet: WorkoutSet): Observable<WorkoutSet> {

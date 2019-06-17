@@ -1,0 +1,48 @@
+<h1>Workout Template Editor</h1>
+
+<div class="row">
+  <div class="col-md-1">
+    <button class="btn btn-success" (click)="newWorkoutSetTemplate()">Add Set</button>
+  </div>
+  <div class="col-md-3">
+    <select class="form-control" [(ngModel)]="selectedExercise">
+      <option *ngFor="let exercise of exercises" [value]="exercise.id">{{exercise.name}}</option>
+    </select>
+  </div>
+</div>
+<br />
+<div *ngFor="let exercise of exercises">
+  <div *ngIf="numberOfSetsForExercise(exercise)">
+    <h3>{{exercise.name}}</h3>
+    <div class="list-group list-group-flush">
+      <div *ngFor="let setTemplate of setTemplates">
+      <div class="list-group-item" *ngIf="setTemplate.exerciseId == exercise.id">
+        <div class="row">
+          <div class="col-lg-3">
+            <select class="form-control" [(ngModel)]="setTemplate.exerciseId" (change)="updateWorkoutSetTemplate(setTemplate)">
+              <option *ngFor="let exerciseList of exercises" [value]="exerciseList.id">{{exerciseList.name}}</option>
+            </select>
+          </div>
+          <div class="col-md-1">
+            Reps:
+          </div>
+          <div class="col-md-2">
+            <input type="number" class="form-control" [(ngModel)]="setTemplate.reps" (change)="updateWorkoutSetTemplate(setTemplate)">
+          </div>
+          <div class="col-md-1">
+            Percentage:
+          </div>
+          <div class="col-md-2">
+            <input type="number" step="any" class="form-control" [(ngModel)]="setTemplate.percentage" (change)="updateWorkoutSetTemplate(setTemplate)">
+          </div>
+          <div class="col-md">
+          </div>
+          <div class="col-md-1">
+            <button class="btn btn-danger" (click)="removeWorkoutSetTemplate(setTemplate)">Delete</button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
