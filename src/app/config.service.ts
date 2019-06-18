@@ -5,5 +5,5 @@ import { Injectable } from '@angular/core';
 })
 export class ConfigService {
   constructor() { }
-  api = 'http://gymlad-api.zow.li/api/';
+  api = 'https://gymlad-api.herokuapp.com/api/';
  }
