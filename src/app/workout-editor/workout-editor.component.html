@@ -24,9 +24,9 @@
 <div *ngFor="let exercise of exercises">
   <div *ngIf="numberOfSetsForExercise(exercise)">
     <h3>{{exercise.name}}</h3>
-    <div class="list-group">
+    <div class="list-group list-group-flush">
       <div *ngFor="let workoutSet of workoutSets">
-      <div class="list-group-item bg-light" *ngIf="workoutSet.exerciseId == exercise.id">
+      <div class="list-group-item" *ngIf="workoutSet.exerciseId == exercise.id">
         <div class="row">
           <div class="col-lg-3">
             <select class="form-control" [(ngModel)]="workoutSet.exerciseId" (change)="updateWorkoutSet(workoutSet)">
