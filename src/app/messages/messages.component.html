@@ -1,0 +1,6 @@
+<div class="alert alert-danger" role="alert" *ngFor="let message of messagesService.messages">
+  {{message}}
+  <button type="button" class="close" (click)="messagesService.removeMessage(message)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
