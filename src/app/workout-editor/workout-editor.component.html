@@ -15,9 +15,26 @@
     <button class="btn btn-success btn-block" (click)="newWorkoutSet()">Add Set</button>
   </div>
   <div class="col-md-3">
-    <select class="form-control" [(ngModel)]="selectedExercise">
-      <option *ngFor="let exercise of exercises" [value]="exercise.id">{{exercise.name}}</option>
-    </select>
+    <app-exercise-selector (exercise)="selectExercise($event)"></app-exercise-selector>
+  </div>
+  <div class="col-md-1">
+    Reps:
+  </div>
+  <div class="col-md-2">
+    <input type="number" class="form-control" [(ngModel)]="selectedReps">
+  </div>
+  <div class="col-md-1">
+    Weight:
+  </div>
+  <div class="col-md-">
+    <div class="input-group">
+      <input type="number" class="form-control" [(ngModel)]="selectedWeight">
+      <div class="input-group-append">
+        <div class="input-group-text">
+          kg
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <br />
@@ -25,7 +42,7 @@
   <div *ngIf="numberOfSetsForExercise(exercise)">
     <h3>{{exercise.name}}</h3>
     <div class="list-group list-group-flush">
-      <div *ngFor="let workoutSet of workoutSets">
+      <div *ngFor="let workoutSet of workoutSetService.workoutSets">
       <div class="list-group-item" *ngIf="workoutSet.exerciseId == exercise.id">
         <div class="row">
           <div class="col-lg-3">
@@ -54,11 +71,6 @@
           </div>
           <div class="col-md">
           </div>
-          <div class="col-md-1">
-            <div class="spinner-border" role="status">
-              <span class="sr-only">...</span>
-            </div>
-          </div>
           <div class="col-12 col-md-1">
             <button class="btn btn-danger btn-block" (click)="removeWorkoutSet(workoutSet)">Delete</button>
           </div>
@@ -66,11 +78,32 @@
       </div>
       </div>
     </div>
+    <br />
     <div class="row">
       <div class="col-md-2">
-        <button class="btn btn-success my-3 btn-block" (click)="newWorkoutSetExercise(exercise.id)">Add Set</button>
+        <button class="btn btn-success btn-block" (click)="newWorkoutSetExercise(exercise.id)">Add Set</button>
       </div>
+      <div class="col-md-1">
+          Reps:
+        </div>
+        <div class="col-md-2">
+          <input type="number" class="form-control" [(ngModel)]="selectedReps">
+        </div>
+        <div class="col-md-1">
+          Weight:
+        </div>
+        <div class="col-md-">
+          <div class="input-group">
+            <input type="number" class="form-control" [(ngModel)]="selectedWeight">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                kg
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
+    <br />
   </div>
 </div>
 

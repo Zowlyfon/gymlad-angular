@@ -13,6 +13,7 @@ import { WorkoutSetTemplate } from '../workout-set-template';
 import { WorkoutSetTemplateService } from '../workout-set-template.service';
 import { WorkoutTemplate } from '../workout-template';
 import { WorkoutTemplateService } from '../workout-template.service';
+import { MessagesService } from '../messages.service';
 
 @Component({
   selector: 'app-workout-editor',
@@ -21,10 +22,11 @@ import { WorkoutTemplateService } from '../workout-template.service';
 })
 export class WorkoutEditorComponent implements OnInit {
   constructor(private workoutService: WorkoutService,
-              private workoutSetService: WorkoutSetService,
+              public workoutSetService: WorkoutSetService,
               private exerciseService: ExerciseService,
               private workoutTemplateService: WorkoutTemplateService,
               private workoutSetTemplateService: WorkoutSetTemplateService,
+              private messagesService: MessagesService,
               private router: Router,
               private location: Location,
               private route: ActivatedRoute) { }
@@ -33,28 +35,22 @@ export class WorkoutEditorComponent implements OnInit {
   templates: WorkoutTemplate[];
   selectedTemplate: number;
   workoutId: number;
-  workout: Workout;
-  workoutSets: WorkoutSet[];
   exercises: Exercise[];
   selectedExercise: number;
+  selectedReps: number;
+  selectedWeight: number;
 
   numberOfSetsForExercise(exercise: Exercise): number {
-    return this.workoutSets.filter(w => w.exerciseId === exercise.id).length;
+    return this.workoutSetService.workoutSets.filter(w => w.exerciseId === exercise.id).length;
+  }
+
+  selectExercise(id: number) {
+    this.selectedExercise = id;
   }
 
   getExercises(): void {
     this.exerciseService.getExercises()
-      .subscribe(exercises => {
-        this.exercises = exercises;
-        if (this.exercises.length > 0) {
-          this.selectedExercise = this.exercises[0].id;
-        }
-      });
-  }
-
-  getWorkoutSets(): void {
-    this.workoutSetService.getWorkoutSets(this.workoutId)
-      .subscribe(workoutSets => this.workoutSets = workoutSets);
+      .subscribe(exercises => this.exercises = exercises);
   }
 
   getWorkoutTemplates(): void {
@@ -71,26 +67,26 @@ export class WorkoutEditorComponent implements OnInit {
     const newWorkoutSet = new WorkoutSet();
     newWorkoutSet.exerciseId = this.selectedExercise;
     newWorkoutSet.workoutId = this.workoutId;
+    newWorkoutSet.reps = this.selectedReps;
+    newWorkoutSet.weight = this.selectedWeight;
     this.workoutSetService.postWorkoutSet(newWorkoutSet)
-      .subscribe(workoutSet => this.workoutSets.push(workoutSet));
   }
 
   newWorkoutSetExercise(exerciseId: number): void {
     const newWorkoutSet = new WorkoutSet();
     newWorkoutSet.exerciseId = exerciseId;
     newWorkoutSet.workoutId = this.workoutId;
-    this.workoutSetService.postWorkoutSet(newWorkoutSet)
-      .subscribe(workoutSet => this.workoutSets.push(workoutSet));
+    newWorkoutSet.reps = this.selectedReps;
+    newWorkoutSet.weight = this.selectedWeight;
+    this.workoutSetService.postWorkoutSet(newWorkoutSet);
   }
 
   updateWorkoutSet(workoutSet: WorkoutSet): void {
-    this.workoutSetService.putWorkoutSet(workoutSet)
-      .subscribe();
+    this.workoutSetService.putWorkoutSet(workoutSet);
   }
 
   removeWorkoutSet(workoutSet: WorkoutSet): void {
-    this.workoutSetService.deleteWorkoutSet(workoutSet.id)
-      .subscribe(response => this.workoutSets.splice(this.workoutSets.indexOf(workoutSet), 1));
+    this.workoutSetService.deleteWorkoutSet(workoutSet);
   }
 
   importTemplate(): void {
@@ -102,8 +98,7 @@ export class WorkoutEditorComponent implements OnInit {
           w.exerciseId = t.exerciseId;
           w.reps = t.reps;
           w.weight = this.exercises.find(e => e.id === t.exerciseId).trainingMax * t.percentage;
-          this.workoutSetService.postWorkoutSet(w)
-            .subscribe(response => this.workoutSets.push(response));
+          this.workoutSetService.postWorkoutSet(w);
         }
       });
   }
@@ -117,7 +112,8 @@ export class WorkoutEditorComponent implements OnInit {
     }
 
     this.getExercises();
-    this.getWorkoutSets();
+    this.workoutSetService.clearWorkoutSets();
+    this.workoutSetService.getWorkoutSets(this.workoutId);
     this.getWorkoutTemplates();
   }
 

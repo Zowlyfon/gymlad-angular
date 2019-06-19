@@ -26,6 +26,7 @@ import { WorkoutTemplatesComponent } from './workout-templates/workout-templates
 import { WorkoutTemplateEditorComponent } from './workout-template-editor/workout-template-editor.component';
 import { MessagesComponent } from './messages/messages.component';
 import { WorkoutCalendarComponent } from './workout-calendar/workout-calendar.component';
+import { ExerciseSelectorComponent } from './exercise-selector/exercise-selector.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { WorkoutCalendarComponent } from './workout-calendar/workout-calendar.co
     WorkoutTemplatesComponent,
     WorkoutTemplateEditorComponent,
     MessagesComponent,
-    WorkoutCalendarComponent
+    WorkoutCalendarComponent,
+    ExerciseSelectorComponent,
   ],
   imports: [
     BrowserModule,
