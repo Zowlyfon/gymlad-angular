@@ -32,7 +32,12 @@ export class WorkoutTemplateEditorComponent implements OnInit {
 
   getExercises(): void {
     this.exerciseService.getExercises()
-      .subscribe(exercises => this.exercises = exercises);
+      .subscribe(exercises => {
+        this.exercises = exercises;
+        if (this.exercises.length > 0) {
+          this.selectedExercise = this.exercises[0].id;
+        }
+      });
   }
 
   getWorkoutSetTemplates(): void {

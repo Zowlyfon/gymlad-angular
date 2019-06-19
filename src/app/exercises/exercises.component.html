@@ -1,6 +1,15 @@
-<h1>{{title}}</h1>
+<h1>Exercises</h1>
 <br />
-<div class="list-group">
+<div class="row">
+  <div class="col-md-2 col-xs-12">
+    <button class="btn btn-success btn-block" (click)="newExercise()">Add Exercise</button>
+  </div>
+  <div class="col-md-3">
+    <input class="form-control" type="text" [(ngModel)]="newExerciseName">
+  </div>
+</div>
+<br />
+<div class="list-group list-group-flush">
   <div class="list-group-item" *ngFor="let exercise of exercises">
     <div class="row">
       <div class="col-md-2">
@@ -13,7 +22,12 @@
         Training Max Weight:
       </div>
       <div class="col-md-2">
-        <input class="form-control" type="number" [(ngModel)]="exercise.trainingMax" (change)="updateExercise(exercise)">
+        <div class="input-group">
+          <input class="form-control" type="number" [(ngModel)]="exercise.trainingMax" (change)="updateExercise(exercise)">
+          <div class="input-group-append">
+            <span class="input-group-text">kg</span>
+          </div>
+        </div>
       </div>
       <div class="col-md-1">
         <button class="btn btn-danger" (click)="removeExercise(exercise)">Delete</button>
@@ -22,4 +36,4 @@
   </div>
 </div>
 <br />
-<button class="btn btn-success" (click)="newExercise()">Add Exercise</button>
+

@@ -14,7 +14,6 @@ import { WorkoutSetTemplateService } from '../workout-set-template.service';
 import { WorkoutTemplate } from '../workout-template';
 import { WorkoutTemplateService } from '../workout-template.service';
 
-
 @Component({
   selector: 'app-workout-editor',
   templateUrl: './workout-editor.component.html',
@@ -45,7 +44,12 @@ export class WorkoutEditorComponent implements OnInit {
 
   getExercises(): void {
     this.exerciseService.getExercises()
-      .subscribe(exercises => this.exercises = exercises);
+      .subscribe(exercises => {
+        this.exercises = exercises;
+        if (this.exercises.length > 0) {
+          this.selectedExercise = this.exercises[0].id;
+        }
+      });
   }
 
   getWorkoutSets(): void {
@@ -55,7 +59,12 @@ export class WorkoutEditorComponent implements OnInit {
 
   getWorkoutTemplates(): void {
     this.workoutTemplateService.getWorkouts()
-      .subscribe(templates => this.templates = templates);
+      .subscribe(templates => {
+        this.templates = templates;
+        if (this.templates.length > 0) {
+          this.selectedTemplate = this.templates[0].id;
+        }
+      });
   }
 
   newWorkoutSet(): void {

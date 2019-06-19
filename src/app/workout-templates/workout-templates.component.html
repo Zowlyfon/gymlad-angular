@@ -1,26 +1,30 @@
 <h1>
   Workout Templates
 </h1>
+<br />
 <div class="row">
   <div class="col-md-2">
-    <button class="btn btn-success" (click)="newWorkoutTemplate()">New Template</button>
+    <button class="btn btn-success btn-block" (click)="newWorkoutTemplate()">New Template</button>
+  </div>
+  <div class="col-md-1">
+    Name:
   </div>
   <div class="col-md-3">
     <input type="text" class="form-control" [(ngModel)]="newWorkoutTemplateName">
   </div>
 </div>
-
-<div class="list-group">
+<br />
+<div class="list-group list-group-flush">
   <div class="list-group-item" *ngFor="let template of workoutTemplates">
     <div class="row">
       <div class="col-md">
-        {{template.templateName}}
+        <h4 class="align-middle">{{template.templateName}}</h4>
       </div>
-      <div class="col-md-1">
-        <button class="btn btn-danger" (click)="removeWorkoutTemplate(template)">Delete</button>
+      <div class="col-md-1 col-xs-12">
+        <button class="btn btn-danger btn-block" (click)="removeWorkoutTemplate(template)">Delete</button>
       </div>
-      <div class="col-md-1">
-        <button class="btn btn-primary" (click)="openWorkoutTemplateEditor(template)">Edit</button>
+      <div class="col-md-1 col-xs-12">
+        <button class="btn btn-primary btn-block" (click)="openWorkoutTemplateEditor(template)">Edit</button>
       </div>
     </div>
   </div>

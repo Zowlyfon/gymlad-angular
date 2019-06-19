@@ -1,7 +1,8 @@
 <h1>Workouts</h1>
+<br />
 <div class="row">
   <div class="col-md-2">
-    <button class="btn btn-success" (click)="newWorkout()">New Workout</button>
+    <button class="btn btn-success btn-block" (click)="newWorkout()">New Workout</button>
   </div>
   <div class="col-md-2">
     <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time" [(ngModel)]="selectedDate">
@@ -9,19 +10,19 @@
   </div>
 </div>
 <br />
-<div class="list-group">
+<div class="list-group list-group-flush">
   <div *ngFor="let workout of workouts" class="list-group-item">
     <div class="row">
-      <div class="col-md-2">
-        {{workout.time | amCalendar}}
+      <div class="col-md-3">
+        <h4 class="align-middle">{{workout.time | amCalendar}}</h4>
       </div>
       <div class="col-md">
       </div>
       <div class="col-md-1">
-        <button class="btn btn-danger" (click)="removeWorkout(workout)">Delete</button>
+        <button class="btn btn-danger btn-block" (click)="removeWorkout(workout)">Delete</button>
       </div>
       <div class="col-md-1">
-        <button class="btn btn-primary" (click)="openWorkoutEditor(workout.id)">Edit</button>
+        <button class="btn btn-primary btn-block" (click)="openWorkoutEditor(workout.id)">Edit</button>
       </div>
     </div>
   </div>

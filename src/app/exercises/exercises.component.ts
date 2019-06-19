@@ -15,8 +15,7 @@ export class ExercisesComponent implements OnInit {
   constructor(private exerciseService: ExerciseService, private personService: PersonService) { }
 
   exercises: Exercise[];
-
-  title = 'Exercises';
+  newExerciseName: string;
 
   getExercises(): void {
     this.exerciseService.getExercises()
@@ -30,7 +29,7 @@ export class ExercisesComponent implements OnInit {
 
   newExercise(): void {
     const newExercise = new Exercise();
-    newExercise.name = 'New Exercise';
+    newExercise.name = this.newExerciseName;
     newExercise.personId = this.personService.person.id;
     this.exerciseService.postExercise(newExercise)
       .subscribe(exercise => this.exercises.push(exercise));

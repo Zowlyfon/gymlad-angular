@@ -9,6 +9,8 @@ import { MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldMo
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +25,7 @@ import { RegisterComponent } from './register/register.component';
 import { WorkoutTemplatesComponent } from './workout-templates/workout-templates.component';
 import { WorkoutTemplateEditorComponent } from './workout-template-editor/workout-template-editor.component';
 import { MessagesComponent } from './messages/messages.component';
+import { WorkoutCalendarComponent } from './workout-calendar/workout-calendar.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,8 @@ import { MessagesComponent } from './messages/messages.component';
     RegisterComponent,
     WorkoutTemplatesComponent,
     WorkoutTemplateEditorComponent,
-    MessagesComponent
+    MessagesComponent,
+    WorkoutCalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,11 @@ import { MessagesComponent } from './messages/messages.component';
     MatFormFieldModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    GoogleChartsModule
+    GoogleChartsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    })
   ],
   providers: [
     {

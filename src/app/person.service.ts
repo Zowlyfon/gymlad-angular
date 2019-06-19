@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Person } from './person';
+import { Patch } from './patch';
 import { NewPerson } from './new-person';
 import { ConfigService } from './config.service';
 
@@ -23,6 +24,14 @@ export class PersonService {
 
   postPerson(person: NewPerson): Observable<Person> {
     return this.http.post<Person>(this.endpoint, person);
+  }
+
+  putPerson(person: Person): Observable<Person> {
+    return this.http.put<Person>(this.endpoint, person);
+  }
+
+  patchPerson(patch: Patch): Observable<Person> {
+    return this.http.patch<Person>(this.endpoint, patch);
   }
 
 }

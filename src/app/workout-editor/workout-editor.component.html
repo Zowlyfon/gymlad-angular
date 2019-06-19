@@ -1,7 +1,7 @@
 <h1>Workout Editor</h1>
 <div class="row">
   <div class="col-md-2">
-    <button class="btn btn-success" (click)="importTemplate()">Import Template</button>
+    <button class="btn btn-success btn-block" (click)="importTemplate()">Import Template</button>
   </div>
   <div class="col-md-3">
     <select class="form-control" [(ngModel)]="selectedTemplate">
@@ -11,8 +11,8 @@
 </div>
 <br />
 <div class="row">
-  <div class="col-12 col-md-2">
-    <button class="btn btn-success" (click)="newWorkoutSet()">Add Set</button>
+  <div class="col-md-2 col-xs-12">
+    <button class="btn btn-success btn-block" (click)="newWorkoutSet()">Add Set</button>
   </div>
   <div class="col-md-3">
     <select class="form-control" [(ngModel)]="selectedExercise">
@@ -43,18 +43,34 @@
             Weight:
           </div>
           <div class="col-md-2">
-            <input type="number" step="any" class="form-control" [(ngModel)]="workoutSet.weight" (change)="updateWorkoutSet(workoutSet)">
+            <div class="input-group">
+              <input type="number" step="any" class="form-control" [(ngModel)]="workoutSet.weight" (change)="updateWorkoutSet(workoutSet)">
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  kg
+                </span>
+              </div>
+            </div>
           </div>
           <div class="col-md">
           </div>
+          <div class="col-md-1">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">...</span>
+            </div>
+          </div>
           <div class="col-12 col-md-1">
-            <button class="btn btn-danger" (click)="removeWorkoutSet(workoutSet)">Delete</button>
+            <button class="btn btn-danger btn-block" (click)="removeWorkoutSet(workoutSet)">Delete</button>
           </div>
         </div>
       </div>
       </div>
     </div>
-    <button class="btn btn-success my-3" (click)="newWorkoutSetExercise(exercise.id)">Add Set</button>
+    <div class="row">
+      <div class="col-md-2">
+        <button class="btn btn-success my-3 btn-block" (click)="newWorkoutSetExercise(exercise.id)">Add Set</button>
+      </div>
+    </div>
   </div>
 </div>
 

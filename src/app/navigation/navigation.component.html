@@ -1,12 +1,12 @@
-<div class="col-md-2 p-3">
+<div class="col-md-2 col-xs-12 p-3 flex-column">
   <h1>GymLad</h1>
-  <nav class="nav p-4">
-    <ul class="navbar navbar-nav" *ngIf="auth.isAuthenticated">
-      <li class="nav-item" *ngFor="let link of authedLinks"><a class="nav-link d-block" [routerLink]="link.link" routerLinkActive="active">{{link.name}}</a></li>
-      <li class="nav-item"><a class="nav-link d-block text-danger" (click)="performLogout()">Logout</a></li>
+  <nav class="nav nav-fill p-4 mx-auto">
+    <ul class="navbar navbar-nav list-group list-group-flush mx-auto" *ngIf="auth.isAuthenticated">
+      <li class="nav-item list-group-item" *ngFor="let link of authedLinks"><a class="nav-link" [routerLink]="link.link" routerLinkActive="text-success">{{link.name}}</a></li>
+      <li class="nav-item list-group-item"><a class="nav-link text-danger" (click)="performLogout()">Logout</a></li>
     </ul>
     <ul class="navbar navbar-nav" *ngIf="!auth.isAuthenticated">
-      <li class="nav-item" *ngFor="let link of anonLinks"><a class="nav-link d-block" [routerLink]="link.link" routerLinkActive="active" >{{link.name}}</a></li>
+      <li class="nav-item" *ngFor="let link of anonLinks"><a class="nav-link d-block" [routerLink]="link.link" routerLinkActive="text-success" >{{link.name}}</a></li>
     </ul>
   </nav>
 </div>
