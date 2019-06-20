@@ -20,7 +20,8 @@ export class RegisterComponent implements OnInit {
     this.personService.postPerson(this.person)
       .subscribe(
         response => this.router.navigate(['/login']),
-        error => this.messagesService.addMessage(error.error)
+        error => this.messagesService
+          .addMessage('One or more fields invlaid, height and weight must be numbers, password must be min 8 characters, username must be unique')
       );
   }
   ngOnInit() {
